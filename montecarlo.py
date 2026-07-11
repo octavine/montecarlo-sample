@@ -21,6 +21,8 @@ def main():
     returns = ret(price)
     a = []
     b = []
+    avg = 0
+    dd = 0
     for i in range(len(returns)):
         if returns[i] >= 0:
             a.append(returns[i])
@@ -32,9 +34,18 @@ def main():
             pos += 1
         else:
             neg += 1
-        plt.plot(logs(price)+t)
+        avg += (price+format(t))[-1]
+        dd+=max_dd(format(t))
+        plt.plot(price+format(t))
 
     print("% positive outcomes:",(pos/(pos+neg))*100)
+    print("original price", price[-1])
+    print("average final price:", avg/runs)
+    print("avg % change:", (((avg/runs)-price[-1])/price[-1])*100)
+    print("avg max down draw:", dd/runs,"%")
+
+
+
     plt.show()
 
 def logs(set = []):
@@ -50,6 +61,9 @@ def ret(set = []):
             a.append(math.log(set[i]/set[i-1]))
     return a
 
+def format(set=[]):
+    return [math.exp(x) for x in set]
+
 def montecarlo(pset = [], nset = [], time =100, f = 0):
     a = [f]
     for i in range(time):
@@ -59,6 +73,17 @@ def montecarlo(pset = [], nset = [], time =100, f = 0):
         else:
             a.append(a[i] +nset[random.randint(0,len(nset)-1)])
     return a
+
+def max_dd(set=[]):
+    peak = set[0]
+    max_dd = 0
+    for price in set:
+        if price > peak:
+            peak = price
+        dd = (peak - price) / peak
+        if dd > max_dd:
+            max_dd = dd
+    return max_dd * 100
 
 if __name__ == '__main__':
     main()
