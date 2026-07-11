@@ -5,7 +5,7 @@ This is my first of many future finance related projects built using python. It 
 
 This project utilized yfinance for ticker data and matplotlib for graphing. In the future I will experiment with using libraries like numpy and pandas for more advanced work but the basic tools of python worked aproprietly for a simple project such as this
 
-# metrics
+# features
 The cfg section in the start of the file allows users to change lookback, interval, amount of simulations, amount of ticks each montecarlo runs, and ticker
 
 The output shows percentage of positive outcomes, original price, average final price, average percent change, and average maximum draw down
